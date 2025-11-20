@@ -1,6 +1,6 @@
 # Robot Sensing and Navigation
 
-Course materials and lab assignments for **EECE5554 - Robot Sensing and Navigation** at Northeastern University.
+ Lab work for **EECE5554 - Robot Sensing and Navigation** at Northeastern University.
 
 ## Course Overview
 
