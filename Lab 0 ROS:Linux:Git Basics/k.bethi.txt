@@ -1,0 +1,3 @@
+I have intalled GIT, Ubuntu, and am ready to use GitHub. 
+I am also currently in the process of learning how to use the command line to push code to GitHub.
+I encountered a few issues while running the talker and listener file, which I have for the most part, resolved.

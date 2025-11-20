@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>gps_driver</name>
+  <version>0.0.1</version>
+  <description>RTK GNSS driver publishing Customrtk messages from a serial NMEA source.</description>
+
+  <maintainer email="kiransairam1@gmail.com">Kiran Sairam</maintainer>
+  <license>MIT</license>
+
+  <!-- Build tool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Build dependencies for custom messages -->
+  <build_depend>rosidl_default_generators</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <!-- Execution/runtime dependencies -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-serial</exec_depend>
+
+  <!-- Required when installing interfaces -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

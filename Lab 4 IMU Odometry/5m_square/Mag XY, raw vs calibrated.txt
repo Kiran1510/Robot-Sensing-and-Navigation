@@ -1,0 +1,5 @@
+# magnetometer xy calibration (hard-iron + soft-iron)
+bias_bx_by = [9.05000000e-06, -1.52000000e-05]  # tesla
+softiron_M =
+  [1.01152154e+00, 2.23300888e-02]
+  [2.23300888e-02, 9.91326676e-01]

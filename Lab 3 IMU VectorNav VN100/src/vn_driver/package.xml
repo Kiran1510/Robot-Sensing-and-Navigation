@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>vn_driver</name>
+  <version>0.0.0</version>
+  <description>VectorNav VN-100 IMU ROS 2 driver with custom message</description>
+
+  <maintainer email="kiransairam1@gmail.com">Kiran Sairam</maintainer>
+  <license>MIT</license>
+
+  <!-- Build tools -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- Dependencies -->
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <!-- Runtime dependencies -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- Failsafe: explicitly declare membership for interface generation -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <member_of_group>rosidl_interface_packages</member_of_group>
+  </export>
+</package>

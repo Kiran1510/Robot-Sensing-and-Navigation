@@ -1,0 +1,44 @@
+rosbag2_bagfile_information:
+  version: 9
+  storage_identifier: mcap
+  duration:
+    nanoseconds: 330549944414
+  starting_time:
+    nanoseconds_since_epoch: 1761939167192566329
+  message_count: 13223
+  topics_with_message_count:
+    - topic_metadata:
+        name: /imu
+        type: vn_driver/msg/Vectornav
+        serialization_format: cdr
+        offered_qos_profiles:
+          - history: unknown
+            depth: 0
+            reliability: reliable
+            durability: volatile
+            deadline:
+              sec: 9223372036
+              nsec: 854775807
+            lifespan:
+              sec: 9223372036
+              nsec: 854775807
+            liveliness: automatic
+            liveliness_lease_duration:
+              sec: 9223372036
+              nsec: 854775807
+            avoid_ros_namespace_conventions: false
+        type_description_hash: RIHS01_9573127ad0fcc05c6fc2708c55cf4ccb4d4c75ec2d4c0a37b7fdd4199ae04e13
+      message_count: 13223
+  compression_format: ""
+  compression_mode: ""
+  relative_file_paths:
+    - stationary_data_5min_0.mcap
+  files:
+    - path: stationary_data_5min_0.mcap
+      starting_time:
+        nanoseconds_since_epoch: 1761939167192566329
+      duration:
+        nanoseconds: 330549944414
+      message_count: 13223
+  custom_data: ~
+  ros_distro: jazzy
