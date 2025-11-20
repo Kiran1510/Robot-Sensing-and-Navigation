@@ -4,7 +4,7 @@
 
 ## Course Overview
 
-This repository contains my approach at projects involving writing python drivers in ROS2 for various sensors and navigation systems used in robotics, including GPS, RTK GPS, IMU sensors, and ROS2 implementations.
+This repository contains my approach at projects involving among several other things, writing python drivers in ROS2 for various sensors and navigation systems used in robotics, including GPS, RTK GPS, IMU sensors, and ROS2 implementations.
 
 ## Repository Structure
 
