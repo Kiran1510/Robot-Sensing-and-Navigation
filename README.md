@@ -1,6 +1,6 @@
 # Robot Sensing and Navigation
 
- Lab work for **EECE5554 - Robot Sensing and Navigation** at Northeastern University.
+ Some of the work I did  for the **EECE5554 - Robot Sensing and Navigation** course at Northeastern University.
 
 ## Course Overview
 
