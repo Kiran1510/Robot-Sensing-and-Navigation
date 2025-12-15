@@ -53,7 +53,6 @@ This repository contains my approach to projects involving, among several other 
 - **Python** - Data analysis and visualization
 - **GNSS/GPS** - Global positioning systems
 - **IMU Sensors** - Inertial measurement units for orientation tracking
-- **LaTeX** - Professional technical documentation
 
 ## Key Concepts
 
@@ -68,7 +67,7 @@ This repository contains my approach to projects involving, among several other 
 ## Documentation
 
 Each lab folder contains:
-- **Technical Reports** - Comprehensive LaTeX-formatted reports with analysis and results
+- **Technical Reports (PDF)** - Comprehensive reports with analysis and results
 - **Source Code** - Python scripts for data collection and analysis
 - **Data Visualization** - Plots and figures illustrating sensor performance
 - **Analysis Scripts** - Tools for processing ROS2 bag files and sensor data
@@ -80,24 +79,15 @@ Each lab folder contains:
 - ROS2 (Jazzy)
 - Python 3.x
 - Required Python packages: numpy, matplotlib, pandas
-- LaTeX distribution (for compiling reports)
 
 ### Running the Code
 
 Each lab folder contains its own scripts and launch files. Navigate to the directory, download, open each analysis script and change the export location to wherever you wish to save the plots. (By default, it is set to my computer's directory)
 
-### Viewing Reports
-
-Lab reports are provided in both LaTeX source (`.tex`) and PDF formats. To compile the LaTeX reports:
-```bash
-cd "Lab X - Name"
-pdflatex report.tex
-```
-
 ## Analysis & Results
 
 Each lab includes:
-- Comprehensive technical reports in LaTeX format
+- Comprehensive technical reports in PDF format
 - Data collected and analyzed from actual sensor experiments
 - Analysis scripts for processing ROS2 bag files
 - Plots and visualizations of sensor performance
