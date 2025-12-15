@@ -26,12 +26,12 @@ This repository contains my approach to projects involving, among several other 
   - Comparison between standard GPS and RTK performance
   - **[Lab Report Available](Lab%202%20RTK%20GPS/)** - Comprehensive report on RTK vs. standalone GPS performance
 
-- **Lab 3: IMU VectorNav VN-100**
+- **Lab 3: IMU VectorNav VN100**
   - Inertial Measurement Unit (IMU) sensor integration
   - Orientation and angular velocity measurements
   - Sensor calibration and error analysis
   - Allan Deviation analysis for sensor characterization
-  - **[Lab Report Available](Lab%203%20IMU%20VectorNav%20VN-100/)** - Quiz documentation with IMU data analysis and video synchronization
+  - **[Lab Report Available](Lab%203%20IMU%20VectorNav%20VN100/)** - Quiz documentation with IMU data analysis and video synchronization
 
 - **Lab 4: IMU Odometry**
   - Dead reckoning using IMU data
