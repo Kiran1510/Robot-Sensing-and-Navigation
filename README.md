@@ -17,35 +17,35 @@ This repository contains my approach to projects involving, among several other 
   - GPS data collection and analysis using the BU-353N sensor
   - Position accuracy evaluation and error characterization
   - Statistical analysis of stationary and moving data
-  - **[Lab Report Available](Lab%201%20GPS%20BU-353N/)** - Detailed quiz responses with error analysis and visualization
+  - **[Lab Report (PDF)](Lab%201%20GPS%20BU-353N/Lab%201%20Report.pdf)** - Detailed quiz responses with error analysis and visualization
 
 - **Lab 2: RTK GPS**
   - Real-Time Kinematic (RTK) GPS positioning
   - High-precision positioning with centimeter-level accuracy
   - Analysis of stationary and moving RTK data
   - Comparison between standard GPS and RTK performance
-  - **[Lab Report Available](Lab%202%20RTK%20GPS/)** - Comprehensive report on RTK vs. standalone GPS performance
+  - **[Lab Report (PDF)](Lab%202%20RTK%20GPS/Lab%202%20Report.pdf)** - Comprehensive report on RTK vs. standalone GPS performance
 
 - **Lab 3: IMU VectorNav VN100**
   - Inertial Measurement Unit (IMU) sensor integration
   - Orientation and angular velocity measurements
   - Sensor calibration and error analysis
   - Allan Deviation analysis for sensor characterization
-  - **[Lab Report Available](Lab%203%20IMU%20VectorNav%20VN100/)** - Quiz documentation with IMU data analysis and video synchronization
+  - **[Lab Report (PDF)](Lab%203%20IMU%20VectorNav%20VN100/Lab%203%20Report.pdf)** - Quiz documentation with IMU data analysis and video synchronization
 
 - **Lab 4: IMU Odometry**
   - Dead reckoning using IMU data
   - Trajectory reconstruction from inertial measurements
   - Magnetometer calibration (hard-iron and soft-iron correction)
   - Gyroscope and accelerometer integration
-  - **[Lab Report Available](Lab%204%20IMU%20Odometry/)** - Complete analysis of circle and square walking patterns
+  - **[Lab Report (PDF)](Lab%204%20IMU%20Odometry/Lab%204%20Report.pdf)** - Complete analysis of circle and square walking patterns
 
 - **Lab 5: Automotive Dead Reckoning**
   - Integration of VectorNav VN-100 IMU and BU-353N GPS for vehicle navigation
   - Multi-sensor fusion for improved positioning accuracy
   - Dead reckoning implementation for automotive applications
   - Complementary filtering and sensor fusion techniques
-  - **[Lab Report Available](Lab%205%20Automotive%20Dead%20Reckoning/)** - Automotive sensor fusion analysis
+  - **[Lab Report (PDF)](Lab%205%20Automotive%20Dead%20Reckoning/Lab5%20Report.pdf)** - Automotive sensor fusion analysis
 
 ## Technologies Used
 
