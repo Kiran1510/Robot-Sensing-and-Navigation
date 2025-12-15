@@ -1,6 +1,6 @@
 # Robot Sensing and Navigation
 
- Some of the work I did  for the **EECE5554 - Robot Sensing and Navigation** course at Northeastern University.
+Some of the work I did for the **EECE5554 - Robot Sensing and Navigation** course at Northeastern University.
 
 ## Course Overview
 
@@ -32,6 +32,12 @@ This repository contains my approach at projects involving among several other t
   - Dead reckoning using IMU data
   - Trajectory reconstruction from inertial measurements
   - Allan Deviation analysis for gyroscope characterization
+
+- **Lab 5: Automotive Dead Reckoning**
+  - Integration of VectorNav VN-100 IMU and BU-353N GPS for vehicle navigation
+  - Multi-sensor fusion for improved positioning accuracy
+  - Dead reckoning implementation for automotive applications
+  - Complementary filtering and sensor fusion techniques
 
 ## Technologies Used
 
@@ -68,7 +74,6 @@ Each lab includes:
 - Plots 
 - Performance metrics and errors
 - Observations (where applicable)
-
 
 ## Author
 
