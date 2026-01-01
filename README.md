@@ -114,6 +114,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
+- Dr Kris Dorsey
 - Northeastern University EECE5554 Course Staff
 - ROS2 Community
 - Open-source sensor driver contributors
