@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# -------- Allan deviation (simple, non-overlapping) --------
+# Allan deviation (simple, non-overlapping) implementation
 def allan_simple(series, dt, num_taus=200):
     s = np.asarray(series, float)
     N = len(s)
@@ -24,7 +24,7 @@ def allan_simple(series, dt, num_taus=200):
 
     return np.array(taus_out), np.array(adev_out)
 
-# -------- ARW, Bias, RRW --------
+# ARW, Bias, RRW, K estimation
 def N_at_1s(taus, adev):
     idx = np.argmin(np.abs(taus - 1.0))
     return float(adev[idx])
@@ -44,7 +44,7 @@ def metrics(taus, adev):
     slope, K = estimate_K(taus, adev)
     return N, B, slope, K
 
-# -------- Plot 3-in-1 Gyro Figure --------
+# Plot 3-in-1 Gyro Figure
 def plot_gyro(taus_list, adev_list, outpng):
     titles = ["Gyro X", "Gyro Y", "Gyro Z"]
     fig, axes = plt.subplots(1, 3, figsize=(18,5))
@@ -72,9 +72,9 @@ def plot_gyro(taus_list, adev_list, outpng):
     outpng.parent.mkdir(exist_ok=True, parents=True)
     plt.savefig(outpng, dpi=200)
     plt.close()
-    print(f"✅ Saved {outpng}")
+    print(f"Saved {outpng}")
 
-# -------- Main --------
+# Main function
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("csv", type=Path)
@@ -82,7 +82,7 @@ def main():
 
     df = pd.read_csv(args.csv)
 
-    # assume fixed 40 Hz sample rate
+    # Assume fixed 40 Hz sample rate
     dt = 1/40.0
 
     gyro_cols = ["gyro_x","gyro_y","gyro_z"]
@@ -96,7 +96,7 @@ def main():
 
     outpng = args.csv.parent / "allan_gyro_3in1.png"
     plot_gyro(gyro_taus, gyro_adev, outpng)
-    print("\n✅ Gyro Allan analysis complete\n")
+    print("\nGyro Allan analysis complete\n")
 
 if __name__ == "__main__":
     main()

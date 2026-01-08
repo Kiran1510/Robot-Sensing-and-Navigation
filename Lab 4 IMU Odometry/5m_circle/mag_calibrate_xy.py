@@ -4,28 +4,28 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# paths
+# Path to the IMU data CSV file
 csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_circle/5m_circle_0_imu.csv")
 out_png = csv_path.with_name("Magnetometer XY calibration fig1.png")
 
-# tesla to milligauss
+# Tesla to milligauss
 T_TO_MG = 1e7
 
 
 def main():
     df = pd.read_csv(csv_path)
 
-    # raw magnetometer data in milligauss
+    # Raw magnetometer data in milligauss
     mx = df["mag_x"].to_numpy(float) * T_TO_MG
     my = df["mag_y"].to_numpy(float) * T_TO_MG
 
-    # hard-iron offsets
+    # Hard-iron offsets
     bias_x = 0.5 * (mx.max() + mx.min())
     bias_y = 0.5 * (my.max() + my.min())
     mx_centered = mx - bias_x
     my_centered = my - bias_y
 
-    # soft-iron scale (y only)
+    # Soft-iron scale (y only)
     max_x = np.max(np.abs(mx_centered))
     max_y = np.max(np.abs(my_centered))
     scale_y = max_x / max_y if max_y != 0 else 1.0
@@ -33,7 +33,7 @@ def main():
     mx_cal = mx_centered
     my_cal = my_centered * scale_y
 
-    # print calibration parameters
+    # Print calibration parameters
     print("magnetometer xy calibration parameters")
     print(f"  bias_x (mG): {bias_x:.3f}")
     print(f"  bias_y (mG): {bias_y:.3f}")
@@ -44,7 +44,7 @@ def main():
     print("soft-iron 2x2 scale matrix:")
     print(scale_matrix)
 
-    # plot raw vs calibrated
+    # Plot raw vs calibrated
     plt.figure(figsize=(7, 6))
     plt.scatter(mx, my, s=5, color="C0", label="raw")
     plt.scatter(mx_cal, my_cal, s=5, color="C3", label="calibrated")

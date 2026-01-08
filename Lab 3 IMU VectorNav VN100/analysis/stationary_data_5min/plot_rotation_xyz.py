@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# python3 plot_rotation_xyz.py /path/to/file.csv
+# Read CSV file from command line argument
 csv_path = sys.argv[1]
 df = pd.read_csv(csv_path)
 

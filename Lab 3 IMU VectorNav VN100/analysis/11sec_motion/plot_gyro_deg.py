@@ -5,10 +5,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-#  CONFIG 
-CSV_FILE = "11sec_motion_0.csv"        # Your CSV file name
+#  Path to CSV files
+CSV_FILE = "11sec_motion_0.csv"        # CSV file name
 OUT_PNG  = "gyro_rotation_deg.png"     # Output image
-# --------------------------
 
 # Load CSV
 df = pd.read_csv(CSV_FILE)
@@ -19,7 +18,7 @@ if "ros_header_t_sec" in df.columns:
 elif "bag_t_sec" in df.columns:
     t = df["bag_t_sec"].to_numpy()
 else:
-    t = np.arange(len(df)) / 40.0  # assume 40 Hz fallback
+    t = np.arange(len(df)) / 40.0  # assume 40 Hz fallback if none found
 
 # Gyro (rad/s to deg/s)
 rad2deg = 180.0 / np.pi

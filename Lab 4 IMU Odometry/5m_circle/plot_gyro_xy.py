@@ -9,17 +9,17 @@ csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_circle/5m_circle_0_imu.cs
 out_x = csv_path.with_name("Gyro X rate + angle fig2.png")
 out_y = csv_path.with_name("Gyro Y rate + angle fig3.png")
 
-# number of initial samples used to estimate constant gyro bias
+# Number of initial samples used to estimate constant gyro bias
 bias_samples = 80  # ~2 s at ~40 Hz
 
 
 def main():
     df = pd.read_csv(csv_path)
 
-    # time vector from bag time, shifted to start at zero
+    # Time vector from bag time, shifted to start at zero
     t = df["bag_t_sec"].to_numpy(float)
 
-    # drop any repeated timestamps
+    # Drop any repeated timestamps
     keep = np.diff(np.r_[t[:1], t]) > 0
     df = df.loc[keep].reset_index(drop=True)
     t = df["bag_t_sec"].to_numpy(float)
@@ -35,7 +35,7 @@ def main():
         bias = float(np.mean(rate[:n0]))
         rate_d = rate - bias
 
-        # integrate to get angle (radians) with cumulative trapezoid
+        # Integrate to get angle (radians) with cumulative trapezoid
         dt = np.diff(t, prepend=t[0])
         angle = np.cumsum(0.5 * (rate_d + np.r_[rate_d[:1], rate_d[:-1]]) * dt)
 

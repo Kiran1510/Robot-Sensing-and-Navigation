@@ -11,7 +11,7 @@ scripts = [
     "analyse_moving_rtk_altitude.py"
 ]
 
-print("\n========== running all rtk analyses ==========\n")
+print("\nRunning all rtk analyses\n")
 for s in scripts:
     p = ANALYSIS_DIR / s
     if p.exists():

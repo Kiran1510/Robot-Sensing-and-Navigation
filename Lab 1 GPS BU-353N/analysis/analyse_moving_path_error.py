@@ -7,7 +7,7 @@ from mcap_ros2.reader import read_ros2_messages
 import utm
 
 def read_utm_data(bag_path, topic):
-    """Reads GPS data from the .mcap and converts lat/lon to UTM coordinates."""
+    # Reads GPS data from the .mcap and converts lat/lon to UTM coordinates.
     easting, northing = [], []
     with open(bag_path, "rb") as f:
         for m in read_ros2_messages(f):
@@ -20,7 +20,7 @@ def read_utm_data(bag_path, topic):
     return np.array(easting), np.array(northing)
 
 def fit_line(e, n):
-    """Fits a best-fit line (northing vs easting) and computes perpendicular distances."""
+    # Fits a best-fit line (northing vs easting) and computes perpendicular distances.
     A = np.vstack([e, np.ones_like(e)]).T
     slope, intercept = np.linalg.lstsq(A, n, rcond=None)[0]
     n_pred = slope * e + intercept
@@ -48,7 +48,7 @@ def main():
     print(f"Average deviation: {np.mean(dist):.2f} m")
     print(f"Max deviation: {np.max(dist):.2f} m")
 
-    # plot points + best-fit line
+    # plot points and best-fit line
     plt.figure(figsize=(8,6))
     plt.scatter(e, n, s=15, marker=args.marker, alpha=0.8, label=args.label)
     plt.plot(e, n_pred, color="red", linewidth=1.3, label="Best-fit line")

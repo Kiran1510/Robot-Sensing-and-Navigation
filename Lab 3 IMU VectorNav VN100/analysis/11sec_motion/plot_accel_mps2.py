@@ -22,7 +22,7 @@ else:
     dt = 1.0 / 40.0
     t = np.arange(len(df)) * dt
 
-# accelerometer data
+# Accelerometer data
 ax = df["acc_x"].to_numpy()
 ay = df["acc_y"].to_numpy()
 az = df["acc_z"].to_numpy()

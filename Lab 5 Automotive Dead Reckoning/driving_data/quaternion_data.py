@@ -5,7 +5,7 @@ from scipy.spatial.transform import Rotation
 import pandas as pd
 import numpy as np
 
-# directly reading from .mcap file for quaternion data
+# Directly reading from .mcap file for quaternion data
 
 mcappath = Path('driving_data_0.mcap')
 typestore = get_typestore(Stores.ROS2_HUMBLE)
@@ -27,7 +27,7 @@ with AnyReader([mcappath], default_typestore=typestore) as reader:
             print(f"  z: {msg.imu.orientation.z}")
             print(f"  w: {msg.imu.orientation.w}")
             
-            # extracting all quaternion data
+            # Extracting all quaternion data
             imu_data = {'time': [], 'quat_x': [], 'quat_y': [], 'quat_z': [], 'quat_w': []}
             
             for connection, timestamp, rawdata in reader.messages(connections=imu_connections):
@@ -43,7 +43,7 @@ with AnyReader([mcappath], default_typestore=typestore) as reader:
                 imu_data['quat_z'].append(msg.imu.orientation.z)
                 imu_data['quat_w'].append(msg.imu.orientation.w)
             
-            # converting to yaw
+            # Converting to yaw
             df_imu = pd.DataFrame(imu_data)
             quaternions = np.column_stack([df_imu['quat_x'], df_imu['quat_y'], df_imu['quat_z'], df_imu['quat_w']])
             rotations = Rotation.from_quat(quaternions)

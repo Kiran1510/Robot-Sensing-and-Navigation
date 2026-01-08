@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import integrate, signal
 
-# reading driving data from csv
+# Reading driving data from csv
 df = pd.read_csv('driving_data_0_imu.csv')
 
 acc_x = df['acc_x'].values
@@ -12,14 +12,14 @@ gyro_z = df['gyro_z'].values
 timestamps = df['t'].values
 timestamps = timestamps - timestamps[0]
 
-# getting corrected forward velocity using gps and IMU fusion
+# Getting corrected forward velocity using gps and IMU fusion
 stationary_mask = timestamps < 10
 acc_x_bias = np.mean(acc_x[stationary_mask])
 acc_x_corrected = acc_x - acc_x_bias
 
 vel_imu_raw = integrate.cumulative_trapezoid(acc_x_corrected, timestamps, initial=0)
 
-# calculating GPS velocity, first reading csv before variable assigning
+# Calculating GPS velocity, first reading csv before variable assigning
 gps_df = pd.read_csv('driving_data_0_gps.csv')
 
 lat = np.radians(gps_df['latitude'].values)
@@ -30,6 +30,7 @@ gps_time = gps_time - gps_time[0]
 R = 6371000
 vel_gps = np.zeros(len(lat))
 
+# Haversine formula to compute shortest distance between consecutive GPS points
 for i in range(1, len(lat)):
     dlat = lat[i] - lat[i-1]
     dlon = lon[i] - lon[i-1]
@@ -44,7 +45,7 @@ for i in range(1, len(lat)):
 
 vel_gps_interp = np.interp(timestamps, gps_time, vel_gps)
 
-# fusing GPS and IMU velocity (using optimal cutoff = 0.10 Hz)
+# Fusing GPS and IMU velocity (using optimal cutoff = 0.10 Hz)
 fs = 1 / np.mean(np.diff(timestamps))
 nyq = 0.5 * fs
 cutoff_vel = 0.10
@@ -60,10 +61,10 @@ vel_imu_hpf = signal.filtfilt(b_hpf, a_hpf, vel_imu_raw)
 vel_fused = vel_gps_lpf + vel_imu_hpf
 vel_fused[vel_fused < 0] = 0
 
-# calculating Omega*x(dot) using the corrected velocity
+# Calculating Omega*x(dot) using the corrected velocity
 omega_X_dot = gyro_z * vel_fused
 
-# filtering observed lateral acceleration lightly
+# Filtering observed lateral acceleration lightly
 cutoff_acc = 1.0 
 lpf_norm_acc = cutoff_acc / nyq
 b_lpf_acc, a_lpf_acc = signal.butter(2, lpf_norm_acc, btype='low')
@@ -73,7 +74,7 @@ print(f"forward velocity (fused) range: [{vel_fused.min():.2f}, {vel_fused.max()
 print(f"Omega*X_dot range: [{omega_X_dot.min():.2f}, {omega_X_dot.max():.2f}] m/s²")
 print(f"y_obs (filtered) range: [{y_obs_filtered.min():.2f}, {y_obs_filtered.max():.2f}] m/s²")
 
-# plotting comparison
+# Plotting comparison
 plt.figure(figsize=(14, 6))
 
 plt.plot(timestamps, omega_X_dot, 'b-', linewidth=1.5, label='ωẊ (modeled)')

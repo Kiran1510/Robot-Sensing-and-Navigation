@@ -4,19 +4,19 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# paths
+# Path to the IMU data CSV file
 csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_circle/5m_circle_0_imu.csv")
 
 out_x = csv_path.with_name("Accel X + velocity X fig5.png")
 out_y = csv_path.with_name("Accel Y + velocity Y fig6.png")
 out_z = csv_path.with_name("Accel Z + velocity Z fig7.png")
 
-# seconds used to estimate constant accel bias
+# Seconds used to estimate constant accel bias
 bias_seconds = 2.0
 
 
 def load_time(df: pd.DataFrame) -> np.ndarray:
-    # use bag time and shift so it starts at zero
+    # Use bag time and shift so it starts at zero
     t = df["bag_t_sec"].to_numpy(float)
     t = t - t[0]
     return t
@@ -29,12 +29,12 @@ def estimate_bias(a: np.ndarray, t: np.ndarray, window: float) -> float:
     n0 = max(1, n0)
     return float(np.mean(a[:n0]))
 
-
+# Trapezoidal integration
 def integrate_trapz(a: np.ndarray, t: np.ndarray) -> np.ndarray:
     dt = np.diff(t, prepend=t[0])
     return np.cumsum(0.5 * (a + np.r_[a[:1], a[:-1]]) * dt)
 
-
+# Plot acceleration and integrated velocity for one axis
 def plot_axis(t: np.ndarray, acc_raw: np.ndarray, axis: str, out_path: Path):
     bias = estimate_bias(acc_raw, t, bias_seconds)
     acc = acc_raw - bias
@@ -61,7 +61,7 @@ def plot_axis(t: np.ndarray, acc_raw: np.ndarray, axis: str, out_path: Path):
 
     print(f"saved {out_path}  (bias_{axis} = {bias:.5f} m/s²)")
 
-
+# Main function
 def main():
     df = pd.read_csv(csv_path)
     t = load_time(df)

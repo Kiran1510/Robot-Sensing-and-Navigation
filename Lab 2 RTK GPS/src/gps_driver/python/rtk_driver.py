@@ -10,7 +10,7 @@ from builtin_interfaces.msg import Time
 from gps_driver.msg import Customrtk
 
 
-#convert ddmm.mmmm to decimal degrees
+# Convert ddmm.mmmm to decimal degrees
 def dm_to_decimal(dm_value: str, hemi: str) -> float:
     if not dm_value:
         return float("nan")
@@ -21,7 +21,7 @@ def dm_to_decimal(dm_value: str, hemi: str) -> float:
     return -dec if hemi in ("S", "W") else dec
 
 
-#parse gngga line
+# Parse gngga line
 def parse_gngga(line: str):
     if not line.startswith("$GNGGA"):
         return None
@@ -40,7 +40,7 @@ def parse_gngga(line: str):
         return None
 
 
-#convert gps utc time to epoch
+# Convert gps utc time to epoch
 def utc_to_epoch_msg(utc_hms: str) -> Time:
     t = Time()
     try:

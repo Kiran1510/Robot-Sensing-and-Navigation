@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# Input CSV
+# Path to CSV files
 csv_path = "/home/kiran-sairam/imu_ws/analysis/11sec_motion/11sec_motion_0.csv"
 df = pd.read_csv(csv_path)
 

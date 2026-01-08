@@ -4,26 +4,28 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Paths to input CSV and output files
 csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_square/5m_square_0_imu.csv")
 out_png = csv_path.with_name("Mag XY, raw vs calibrated fig9.png")
 out_txt = csv_path.with_name("Mag XY, raw vs calibrated.txt")
 
+# Conversion factor from tesla to milligauss
 to_mg = 1e7  # tesla -> milligauss
 
-
+# Load magnetometer x and y data from CSV
 def load_xy(path):
     df = pd.read_csv(path)
     x = df["mag_x"].to_numpy(float)
     y = df["mag_y"].to_numpy(float)
     return x, y
 
-
+# Compute hard-iron offset (center of the ellipse)
 def hardiron_center(x, y):
     cx = 0.5 * (np.nanmax(x) + np.nanmin(x))
     cy = 0.5 * (np.nanmax(y) + np.nanmin(y))
     return np.array([cx, cy])
 
-
+# Compute soft-iron correction matrix
 def softiron_matrix(centered_xy):
     # centered_xy: 2xN
     s = (centered_xy @ centered_xy.T) / centered_xy.shape[1]
@@ -36,7 +38,7 @@ def softiron_matrix(centered_xy):
     m = k * inv_sqrt
     return m
 
-
+# Main function to perform calibration and plotting
 def main():
     x, y = load_xy(csv_path)
     xy = np.vstack([x, y])  # 2xN
@@ -68,6 +70,6 @@ def main():
     plt.savefig(out_png, dpi=300)
     plt.close()
 
-
+# Run the main function
 if __name__ == "__main__":
     main()

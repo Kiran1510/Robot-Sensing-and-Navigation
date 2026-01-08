@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Path to the CSV file containing IMU data
 csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_square/5m_square_0_imu.csv")
 out_fig = csv_path.with_name("Gyro Z and mag heading fig13.png")
 
@@ -11,19 +12,19 @@ bias_secs = 2.0
 smooth_win = 5
 dpi = 300
 
-
+# Moving average function
 def moving_average(x, w):
     if w <= 1:
         return x
     k = np.ones(int(w)) / int(w)
     return np.convolve(x, k, mode="same")
 
-
+# Trapezoidal integration function
 def integrate_trap(y, t):
     dt = np.diff(t, prepend=t[0])
     return np.cumsum(0.5 * (y + np.r_[y[:1], y[:-1]]) * dt)
 
-
+# Load time data and ensure it's strictly increasing
 def load_time(df):
     if "bag_t_sec" in df.columns:
         t = df["bag_t_sec"].to_numpy(float)
@@ -40,7 +41,7 @@ def load_time(df):
 
     return t - t[0], df
 
-
+# Main function to process data and generate plots
 def main():
     df_all = pd.read_csv(csv_path)
     t, df = load_time(df_all)
@@ -89,6 +90,6 @@ def main():
     plt.savefig(out_fig, dpi=dpi)
     plt.close()
 
-
+# Run the main function
 if __name__ == "__main__":
     main()

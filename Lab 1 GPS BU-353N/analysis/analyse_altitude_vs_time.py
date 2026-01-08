@@ -8,7 +8,7 @@ from mcap_ros2.reader import read_ros2_messages
 
 
 def pick_mcap(path_str: str) -> Path:
-    """Return a concrete .mcap path given a directory or file."""
+    # Return a .mcap path given a directory or file
     p = Path(path_str)
     if p.is_dir():
         files = sorted(p.glob("*.mcap"))
@@ -21,7 +21,7 @@ def pick_mcap(path_str: str) -> Path:
 
 
 def read_time_alt(mcap_path: Path, topic: str):
-    """Return (t_minutes_relative, altitude_m) arrays from one bag."""
+    # Return (t_minutes_relative, altitude_m) arrays from one bag
     ts, alts = [], []
     with open(mcap_path, "rb") as f:
         # topics=[topic] lets the reader filter for us

@@ -4,13 +4,13 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
-    #declare the serial port argument /dev/ttyUSB0 or /dev/pts/2
+    # Declare the serial port argument /dev/ttyUSB0 or /dev/pts/2
     port_arg = DeclareLaunchArgument(
         'port',
         description='Serial port connected to the VectorNav IMU'
     )
 
-    #launch VN-100 driver node
+    # Launch VN-100 driver node
     vn_driver_node = Node(
         package='vn_driver',
         executable='vn_driver',

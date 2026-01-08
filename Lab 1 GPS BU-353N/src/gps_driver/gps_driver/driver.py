@@ -15,14 +15,13 @@ from gps_msgs.msg import Customgps
 
 
 def dm_to_decimal(dm_value: str, hemisphere: str) -> float:
-    """
-    Convert NMEA degrees+minutes to decimal degrees.
+    # Convert NMEA degrees and minutes to decimal degrees.
 
-    NMEA format:
-      - Latitude:  ddmm.mmmm with hemisphere 'N' or 'S'
-      - Longitude: dddmm.mmmm with hemisphere 'E' or 'W'
+    # NMEA format:
+    #   - Latitude:  ddmm.mmmm with hemisphere 'N' or 'S'
+    #   - Longitude: dddmm.mmmm with hemisphere 'E' or 'W'
 
-    """
+
     if not dm_value:
         return float("nan")
 
@@ -41,12 +40,11 @@ def dm_to_decimal(dm_value: str, hemisphere: str) -> float:
 
 
 def parse_gpgga(line: str):
-    """
-    Parse a $GPGGA line.
+    # Parse a $GPGGA line.
 
-    Returns:
-      (utc_time_str, latitude_deg, longitude_deg, altitude_m, hdop)  or  None
-    """
+    # Returns:
+    #   (utc_time_str, latitude_deg, longitude_deg, altitude_m, hdop)  or  None
+
     if not line.startswith("$GPGGA"):
         return None
 

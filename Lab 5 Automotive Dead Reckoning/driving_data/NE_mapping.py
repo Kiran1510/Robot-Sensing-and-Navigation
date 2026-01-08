@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import integrate, signal
 
-# reading driving data from csv
+# Reading driving data from csv
 df = pd.read_csv('driving_data_0_imu.csv')
 
 acc_x = df['acc_x'].values
@@ -13,14 +13,14 @@ gyro_z = df['gyro_z'].values
 timestamps = df['t'].values
 timestamps = timestamps - timestamps[0]
 
-# getting fused velocity
+# Getting fused velocity
 stationary_mask = timestamps < 10
 acc_x_bias = np.mean(acc_x[stationary_mask])
 acc_x_corrected = acc_x - acc_x_bias
 
 vel_imu_raw = integrate.cumulative_trapezoid(acc_x_corrected, timestamps, initial=0)
 
-# calculating GPS velocity
+# Calculating GPS velocity
 gps_df = pd.read_csv('driving_data_0_gps.csv')
 
 lat = np.radians(gps_df['latitude'].values)
@@ -28,10 +28,11 @@ lon = np.radians(gps_df['longitude'].values)
 gps_time = gps_df['t'].values
 gps_time = gps_time - gps_time[0]
 
-# getting UTM coordinates from csv table
+# Getting UTM coordinates from csv table
 utm_easting = gps_df['utm_easting'].values
 utm_northing = gps_df['utm_northing'].values
 
+# calculating GPS velocity using haversine formula
 R = 6371000
 vel_gps = np.zeros(len(lat))
 
@@ -49,7 +50,7 @@ for i in range(1, len(lat)):
 
 vel_gps_interp = np.interp(timestamps, gps_time, vel_gps)
 
-# fusing GPS and IMU velocity using filter
+# Fusing GPS and IMU velocity using filter
 fs = 1 / np.mean(np.diff(timestamps))
 nyq = 0.5 * fs
 cutoff_vel = 0.10
@@ -65,7 +66,7 @@ vel_imu_hpf = signal.filtfilt(b_hpf, a_hpf, vel_imu_raw)
 vel_fused = vel_gps_lpf + vel_imu_hpf
 vel_fused[vel_fused < 0] = 0
 
-# getting fused yaw
+# Getting fused yaw
 hard_iron_offset = np.array([0.00001978, 0.00001289])
 soft_iron_matrix = np.array([[1.00017403, -0.00836799],
                               [-0.00836799, 0.99996603]])
@@ -94,26 +95,26 @@ yaw_gyro_hpf = signal.filtfilt(b_hpf_yaw, a_hpf_yaw, yaw_gyro)
 
 yaw_fused = yaw_mag_lpf + yaw_gyro_hpf
 
-# decomposing velocity into easting and northing components
+# Decomposing velocity into easting and northing components
 ve = vel_fused * np.cos(yaw_fused)
 vn = vel_fused * np.sin(yaw_fused)
 
-# integrating to get displacement
+# Integrating to get displacement
 xe = integrate.cumulative_trapezoid(ve, timestamps, initial=0)
 xn = integrate.cumulative_trapezoid(vn, timestamps, initial=0)
 
-# zero GPS trajectory to start at origin
+# Zero GPS trajectory to start at origin
 easting_zeroed = utm_easting - utm_easting[0]
 northing_zeroed = utm_northing - utm_northing[0]
 
-# calculating GPS heading for alignment
+# Calculating GPS heading for alignment
 gps_heading_initial = np.arctan2(utm_northing[1] - utm_northing[0], utm_easting[1] - utm_easting[0])
 imu_heading_initial = yaw_fused[0]
 
-# rotating angle to align IMU with GPS
+# Rotating angle to align IMU with GPS
 rotation_angle = gps_heading_initial - imu_heading_initial
 
-# rotating IMU trajectory to align with GPS
+# Rotating IMU trajectory to align with GPS
 xe_rotated = xe * np.cos(rotation_angle) - xn * np.sin(rotation_angle)
 xn_rotated = xe * np.sin(rotation_angle) + xn * np.cos(rotation_angle)
 
@@ -121,7 +122,7 @@ print(f"GPS heading initial: {np.degrees(gps_heading_initial):.2f} degrees")
 print(f"IMU heading initial: {np.degrees(imu_heading_initial):.2f} degrees")
 print(f"rotation applied: {np.degrees(rotation_angle):.2f} degrees")
 
-# plotting trajectory comparison
+# Plotting trajectory comparison
 plt.figure(figsize=(12, 10))
 
 plt.plot(xe_rotated, xn_rotated, 'b-', linewidth=2, label='IMU trajectory')

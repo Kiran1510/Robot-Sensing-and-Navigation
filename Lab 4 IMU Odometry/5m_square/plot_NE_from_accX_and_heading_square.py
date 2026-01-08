@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Paths to input CSV and output files
 csv_path = Path("/home/kiran-sairam/imu_ws/analysis/5m_square/5m_square_0_imu.csv")
 out_png = csv_path.with_name("NE_position_from_accX_and_heading_square.png")
 
@@ -11,12 +12,12 @@ acc_bias_secs = 2.0   # seconds at start to estimate accel bias
 gyro_bias_secs = 2.0  # seconds at start to estimate gyro bias
 dpi = 300
 
-
+# Trapezoidal integration
 def integrate_trap(y, t):
     dt = np.diff(t, prepend=t[0])
     return np.cumsum(0.5 * (y + np.r_[y[:1], y[:-1]]) * dt)
 
-
+# Load time and ensure monotonicity
 def load_time(df):
     if "bag_t_sec" in df.columns:
         t = df["bag_t_sec"].to_numpy(float)
@@ -34,7 +35,7 @@ def load_time(df):
     t = t - t[0]
     return t, df
 
-
+# Main function to process data and plot NE position
 def main():
     df0 = pd.read_csv(csv_path)
     t, df = load_time(df0)
@@ -45,7 +46,7 @@ def main():
     mx = df["mag_x"].to_numpy(float)
     my = df["mag_y"].to_numpy(float)
 
-    # accel bias and de-trended forward velocity
+    # Accel bias and de-trended forward velocity
     n_acc0 = max(1, np.searchsorted(t, acc_bias_secs, side="right"))
     acc_bias = float(np.mean(acc_x[:n_acc0]))
     acc_x_d = acc_x - acc_bias
@@ -55,23 +56,23 @@ def main():
     trend = np.polyval(coeffs, t)
     v_fwd = v_fwd - trend
 
-    # gyro bias and raw integrated heading
+    # Gyro bias and raw integrated heading
     n_gyr0 = max(1, np.searchsorted(t, gyro_bias_secs, side="right"))
     gyro_bias = float(np.mean(gyro_z[:n_gyr0]))
     gyro_z_d = gyro_z - gyro_bias
     hdg_gyro = integrate_trap(gyro_z_d, t)
     hdg_gyro -= hdg_gyro[0]
 
-    # magnetometer heading
+    # Magnetometer heading
     hdg_mag = np.unwrap(np.arctan2(my, mx))
     hdg_mag -= hdg_mag[0]
 
-    # fit gyro heading to magnetometer heading
+    # Fit gyro heading to magnetometer heading
     A = np.vstack([hdg_gyro, np.ones_like(hdg_gyro)]).T
     a, b = np.linalg.lstsq(A, hdg_mag, rcond=None)[0]
     hdg_gyro_cal = a * hdg_gyro + b
 
-    # project velocity into N/E and integrate to position
+    # Project velocity into N/E and integrate to position
     dE_mag = v_fwd * dt * np.sin(hdg_mag)
     dN_mag = v_fwd * dt * np.cos(hdg_mag)
     dE_gyr = v_fwd * dt * np.sin(hdg_gyro_cal)
